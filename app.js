@@ -1,16 +1,14 @@
 const express = require('express');
 const path = require('path');
-const fetch = require('node-fetch'); // Use node-fetch for backend requests
+const fetch = require('node-fetch');
 
 const app = express();
 const port = process.env.PORT || 3000;
-const GAS_URL = process.env.GAS_URL; // Get GAS URL from environment variables
+const GAS_URL = process.env.GAS_URL;
 
-// Middleware
-app.use(express.json()); // Parse JSON request bodies
-app.use(express.static(path.join(__dirname, 'public'))); // Serve static files
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Proxy function to call Google Apps Script
 async function callGas(action, payload) {
     if (!GAS_URL) {
         console.error("FATAL: GAS_URL environment variable is not set.");
@@ -18,28 +16,26 @@ async function callGas(action, payload) {
     }
     
     try {
-        console.log(`Calling GAS Action: ${action}`); // Log action being called
+        console.log(`Calling GAS Action: ${action}`);
         const response = await fetch(GAS_URL, {
             method: 'POST',
             redirect: 'follow',
             headers: {
-                'Content-Type': 'application/json', // Sending JSON to GAS
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({ action, payload }),
         });
         
         if (!response.ok) {
-            // Attempt to get more detailed error from GAS response body
             let errorText = `GAS script error (Status: ${response.status})`;
             try {
                 const text = await response.text();
                 console.error(`GAS Error Response: ${text}`);
-                // Attempt to parse if JSON, otherwise use text
                 try {
                     const jsonError = JSON.parse(text);
-                    errorText = jsonError.message || text; // Use message if available
+                    errorText = jsonError.message || text;
                 } catch (parseErr) {
-                    errorText = text || errorText; // Use raw text if not JSON
+                    errorText = text || errorText;
                 }
             } catch (readErr) {
                 console.error("Could not read GAS error response body:", readErr);
@@ -48,16 +44,14 @@ async function callGas(action, payload) {
         }
         
         const result = await response.json();
-        console.log(`GAS Response for ${action}:`, result.status); // Log status
-        return result; // Return the JSON parsed response from GAS
+        console.log(`GAS Response for ${action}:`, result.status);
+        return result;
         
     } catch (error) {
         console.error(`Error calling GAS Action ${action}:`, error);
         return { status: 'error', message: error.message || 'Failed to communicate with backend script.' };
     }
 }
-
-// --- API Routes ---
 
 app.post('/api/create-agent', async (req, res) => {
     const result = await callGas('createAgent', req.body);
@@ -70,7 +64,6 @@ app.post('/api/verify-agent', async (req, res) => {
 });
 
 app.post('/api/verify-school', async (req, res) => {
-    // Potential security: Ensure agentId in req.body matches logged-in user if session exists
     const result = await callGas('verifySchool', req.body);
     res.status(result.status === 'success' ? 200 : 500).json(result);
 });
@@ -95,19 +88,14 @@ app.post('/api/update-profile', async (req, res) => {
     res.status(result.status === 'success' ? 200 : 500).json(result);
 });
 
-// Optional: Route for getting unverified schools (if needed)
 app.get('/api/get-unverified-schools', async (req, res) => {
-    const result = await callGas('getUnverifiedSchools', {}); // No payload needed usually
+    const result = await callGas('getUnverifiedSchools', {});
     res.status(result.status === 'success' ? 200 : 500).json(result);
 });
 
+// Let Vercel's routing handle serving index.html for non-API GET requests
+// The express.static middleware above handles it during local development.
 
-// Catch-all route to serve index.html for any other GET request
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-// Start server
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);
     if (!GAS_URL) {
