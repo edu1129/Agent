@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,64 +10,47 @@
     <style>
         /* --- Start Embedded CSS --- */
         body {
-            background-color: #eef2f7;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            background-color: #eef2f7; display: flex; flex-direction: column; min-height: 100vh;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
-
         .container { flex: 1; }
         #main-content { transition: filter 0.3s ease-in-out; }
         #main-content.loading { filter: blur(4px); pointer-events: none; }
-
         .loading-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.6); z-index: 1060;
-            display: flex; justify-content: center; align-items: center; flex-direction: column;
-            backdrop-filter: blur(3px); transition: opacity 0.3s ease-in-out; opacity: 1;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); z-index: 1060;
+            display: flex; justify-content: center; align-items: center; flex-direction: column; backdrop-filter: blur(3px); transition: opacity 0.3s ease-in-out; opacity: 1;
         }
         .loading-overlay.d-none { opacity: 0; pointer-events: none; }
         .loading-overlay .spinner-border { width: 3rem; height: 3rem; }
-
         .card { border: none; transition: box-shadow 0.3s ease-in-out; margin-bottom: 1.5rem; }
         .card:hover { box-shadow: 0 .5rem 1.5rem rgba(0,0,0,.1) !important; }
         .card-header { font-weight: 500; border-bottom: 1px solid rgba(0,0,0,.08); }
-
         .border-start-lg { border-left: 1px solid #dee2e6 !important; }
-        @media (max-width: 991.98px) {
-             .border-start-lg { border-left: none !important; border-top: 1px solid #dee2e6 !important; padding-top: 1rem !important; }
-        }
-
+        @media (max-width: 991.98px) { .border-start-lg { border-left: none !important; border-top: 1px solid #dee2e6 !important; padding-top: 1rem !important; } }
         .form-control:focus, .form-select:focus { box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25); border-color: #86b7fe; }
         .needs-validation .form-control:invalid, .needs-validation .form-select:invalid { border-color: #dc3545; }
         .needs-validation .form-control:valid, .needs-validation .form-select:valid { border-color: #198754; }
-
         .navbar-brand { letter-spacing: 0.5px; }
         #agent-info-nav { display: flex; align-items: center; }
         #agent-photo-nav { width: 30px; height: 30px; border-radius: 50%; margin-right: 8px; object-fit: cover; border: 1px solid #fff; }
         #agent-info-nav span i { vertical-align: middle; margin-right: 3px; color: #adb5bd; }
-
         .nav-tabs .nav-link { color: #495057; border: none; border-bottom: 3px solid transparent; transition: all 0.2s ease-in-out; font-weight: 500; }
         .nav-tabs .nav-link.active, .nav-tabs .nav-link:hover { color: #0d6efd; border-bottom-color: #0d6efd; background-color: #eef2f7; }
         .nav-tabs .nav-link i { margin-right: 5px; }
         .tab-content { padding-top: 1rem; }
-
         .display-6 { font-size: 2.5rem; }
-
-        .table-responsive { border: 1px solid #dee2e6; border-radius: 0.375rem; }
+        .table-responsive { border: 1px solid #dee2e6; border-radius: 0.375rem; max-height: 400px; /* Limit table height */}
         .table thead { position: sticky; top: 0; z-index: 1; }
         .table caption { padding-top: 0.5rem; padding-bottom: 0.5rem; color: #6c757d; text-align: left; caption-side: top; font-size: 0.875em; }
-
         footer { box-shadow: 0 -0.25rem 0.75rem rgba(0, 0, 0, 0.05); }
-
         .input-group:focus-within { z-index: 5; }
         .input-group:focus-within .form-control, .input-group:focus-within .input-group-text { border-color: #86b7fe; box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25); }
-
-        /* Photo Preview */
         #photo-preview-container { margin-top: 10px; text-align: center; }
         #photo-preview { max-height: 100px; max-width: 100%; border-radius: 4px; border: 1px solid #ddd; }
         #profile-photo-display { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #dee2e6; margin-bottom: 10px; }
+        .stat-card-sm .card-body { padding: 0.8rem; }
+        .stat-card-sm .card-title { font-size: 0.85rem; margin-bottom: 0.2rem; }
+        .stat-card-sm .card-text { font-size: 1.8rem; }
         /* --- End Embedded CSS --- */
     </style>
 </head>
@@ -83,7 +65,7 @@
             <div class="container-fluid">
                 <a class="navbar-brand fw-bold" href="#"><i class="bi bi-shield-check"></i> Agent Portal Pro</a>
                 <div id="agent-info-nav" class="d-none ms-auto text-light me-3 small">
-                    <img id="agent-photo-nav" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAMhJREFUeF7t2KENglAQRdH/CrxgATfQgR1YgVHYgQHYgQVYgR0kgkkhQ+KEx5nLfPN7LpPgvZMYHMk4jrObsWzfiHEc5zdv7987d+zfa+3ft/0p9/13T4FqgcECRAvMFihaQApg9QC1BYYLUANA7UBrA9UCKALA/gVqCwwXoAYAtQOtbVA5AECEBYYLUANA7UBrA9UCKALA/gVqCwwXoAYAtQOtbVA5AECEBYYLUANA7UBrA9UCKALA/gVqCwwXoAYAtQOtbVA5AECEBYYLVAgwZLXKM/+sMQAAAABJRU5ErkJggg==" alt="Agent Photo" class="d-none"> <!-- Placeholder blank image -->
+                    <img id="agent-photo-nav" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAMhJREFUeF7t2KENglAQRdH/CrxgATfQgR1YgVHYgQHYgQVYgR0kgkkhQ+KEx5nLfPN7LpPgvZMYHMk4jrObsWzfiHEc5zdv7987d+zfa+3ft/0p9/13T4FqgcECRAvMFihaQApg9QC1BYYLUANA7UBrA9UCKALA/gVqCwwXoAYAtQOtbVA5AECEBYYLUANA7UBrA9UCKALA/gVqCwwXoAYAtQOtbVA5AECEBYYLUANA7UBrA9UCKALA/gVqCwwXoAYAtQOtbVA5AECEBYYLVAgwZLXKM/+sMQAAAABJRU5ErkJggg==" alt="Agent Photo" class="d-none">
                     <div class="d-flex flex-column justify-content-center lh-1">
                          <span class="fw-bold" id="nav-agent-name">Agent</span>
                          <span class="text-muted" style="font-size: 0.75rem;">ID: <span id="nav-agent-id">N/A</span></span>
@@ -99,163 +81,122 @@
 
             <!-- Login / Create Section -->
             <div id="login-section" class="card shadow-lg border-0">
-                 <div class="card-header bg-gradient bg-primary text-white">
-                    <h4 class="mb-0"><i class="bi bi-box-arrow-in-right"></i> Agent Access</h4>
-                </div>
-                <div class="card-body p-lg-4">
-                    <div class="row g-4 align-items-start"> <!-- Changed align-items -->
-                        <div class="col-lg-5">
-                            <h5><i class="bi bi-key-fill"></i> Existing Agent Login</h5>
-                            <form id="login-form" class="needs-validation" novalidate>
-                                <div class="mb-3">
-                                    <label for="agent-id-login" class="form-label">6-Digit Agent ID</label>
-                                    <div class="input-group">
-                                         <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
-                                         <input type="text" class="form-control form-control-lg" id="agent-id-login" required pattern="\d{6}" title="Enter your 6-digit Agent ID" placeholder="e.g., 123456">
-                                         <div class="invalid-feedback">Please enter a valid 6-digit Agent ID.</div>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="agent-password-login" class="form-label">Password</label>
-                                    <div class="input-group">
-                                         <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
-                                         <input type="password" class="form-control form-control-lg" id="agent-password-login" required placeholder="Your Password">
-                                         <div class="invalid-feedback">Password is required.</div>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-success btn-lg w-100"> <i class="bi bi-check-circle-fill"></i> Login</button>
-                            </form>
-                        </div>
-                         <div class="col-lg-2 text-center d-none d-lg-block pt-lg-5">
-                            <span class="text-muted fw-bold fs-4">OR</span>
-                        </div>
-                        <div class="col-lg-5 border-start-lg">
-                            <h5><i class="bi bi-person-plus-fill"></i> New Agent Registration</h5>
-                            <form id="create-agent-form" class="needs-validation" novalidate>
-                                <div class="row g-2">
-                                    <div class="col-md-6 mb-2">
-                                        <label for="agent-name" class="form-label">Full Name</label>
-                                        <input type="text" class="form-control" id="agent-name" required placeholder="Your Full Name">
-                                         <div class="invalid-feedback">Name is required.</div>
-                                    </div>
-                                     <div class="col-md-6 mb-2">
-                                        <label for="agent-mobile" class="form-label">Mobile Number</label>
-                                        <input type="tel" class="form-control" id="agent-mobile" required placeholder="Mobile No.">
-                                        <div class="invalid-feedback">Mobile number is required.</div>
-                                    </div>
-                                    <div class="col-md-6 mb-2">
-                                        <label for="agent-aadhar" class="form-label">Aadhar Number</label>
-                                        <input type="text" class="form-control" id="agent-aadhar" required pattern="\d{12}" title="Enter 12-digit Aadhar Number" placeholder="12-digit Aadhar">
-                                        <div class="invalid-feedback">Valid 12-digit Aadhar required.</div>
-                                    </div>
-                                     <div class="col-md-6 mb-2">
-                                        <label for="agent-email" class="form-label">Email Address</label>
-                                        <input type="email" class="form-control" id="agent-email" required placeholder="you@example.com">
-                                        <div class="invalid-feedback">Please enter a valid email.</div>
-                                    </div>
-                                     <div class="col-md-6 mb-2">
-                                        <label for="agent-password" class="form-label">Create Password</label>
-                                        <input type="password" class="form-control" id="agent-password" required minlength="6" placeholder="Min. 6 characters">
-                                         <div class="invalid-feedback">Password must be at least 6 characters.</div>
-                                    </div>
-                                     <div class="col-md-6 mb-2">
-                                        <label for="agent-confirm-password" class="form-label">Confirm Password</label>
-                                        <input type="password" class="form-control" id="agent-confirm-password" required placeholder="Re-type password">
-                                        <div class="invalid-feedback" id="confirm-password-feedback">Please confirm your password.</div>
-                                    </div>
-                                     <div class="col-12 mb-2">
-                                          <label for="agent-photo" class="form-label">Agent Photo (Optional)</label>
-                                          <input class="form-control" type="file" id="agent-photo" accept="image/png, image/jpeg, image/webp">
-                                           <div id="photo-preview-container" class="d-none">
-                                               <img id="photo-preview" src="#" alt="Photo Preview"/>
-                                           </div>
-                                           <div class="form-text">Max 5MB. JPG, PNG, WEBP allowed.</div>
-                                     </div>
-                                </div>
-                                <button type="submit" class="btn btn-primary w-100 mt-3"> <i class="bi bi-pencil-square"></i> Create Profile</button>
-                            </form>
-                            <div id="new-agent-id-display" class="mt-3 alert alert-info d-none"></div>
-                        </div>
-                    </div>
-                </div>
+                <div class="card-header bg-gradient bg-primary text-white"><h4 class="mb-0"><i class="bi bi-box-arrow-in-right"></i> Agent Access</h4></div>
+                <div class="card-body p-lg-4"><div class="row g-4 align-items-start">
+                    <div class="col-lg-5"><h5><i class="bi bi-key-fill"></i> Existing Agent Login</h5><form id="login-form" class="needs-validation" novalidate><div class="mb-3"><label for="agent-id-login" class="form-label">6-Digit Agent ID</label><div class="input-group"><span class="input-group-text"><i class="bi bi-person-badge"></i></span><input type="text" class="form-control form-control-lg" id="agent-id-login" required pattern="\d{6}" title="Enter your 6-digit Agent ID" placeholder="e.g., 123456"><div class="invalid-feedback">Valid 6-digit Agent ID required.</div></div></div><div class="mb-3"><label for="agent-password-login" class="form-label">Password</label><div class="input-group"><span class="input-group-text"><i class="bi bi-lock-fill"></i></span><input type="password" class="form-control form-control-lg" id="agent-password-login" required placeholder="Your Password"><div class="invalid-feedback">Password required.</div></div></div><button type="submit" class="btn btn-success btn-lg w-100"> <i class="bi bi-check-circle-fill"></i> Login</button></form></div>
+                    <div class="col-lg-2 text-center d-none d-lg-block pt-lg-5"><span class="text-muted fw-bold fs-4">OR</span></div>
+                    <div class="col-lg-5 border-start-lg"><h5><i class="bi bi-person-plus-fill"></i> New Agent Registration</h5><form id="create-agent-form" class="needs-validation" novalidate><div class="row g-2"><div class="col-md-6 mb-2"><label for="agent-name" class="form-label">Full Name</label><input type="text" class="form-control" id="agent-name" required placeholder="Your Full Name"><div class="invalid-feedback">Name required.</div></div><div class="col-md-6 mb-2"><label for="agent-mobile" class="form-label">Mobile</label><input type="tel" class="form-control" id="agent-mobile" required placeholder="Mobile No."><div class="invalid-feedback">Mobile required.</div></div><div class="col-md-6 mb-2"><label for="agent-aadhar" class="form-label">Aadhar</label><input type="text" class="form-control" id="agent-aadhar" required pattern="\d{12}" title="Enter 12-digit Aadhar" placeholder="12-digit Aadhar"><div class="invalid-feedback">Valid 12-digit Aadhar required.</div></div><div class="col-md-6 mb-2"><label for="agent-email" class="form-label">Email</label><input type="email" class="form-control" id="agent-email" required placeholder="you@example.com"><div class="invalid-feedback">Valid email required.</div></div><div class="col-md-6 mb-2"><label for="agent-password" class="form-label">Password</label><input type="password" class="form-control" id="agent-password" required minlength="6" placeholder="Min. 6 chars"><div class="invalid-feedback">Min. 6 characters required.</div></div><div class="col-md-6 mb-2"><label for="agent-confirm-password" class="form-label">Confirm</label><input type="password" class="form-control" id="agent-confirm-password" required placeholder="Re-type password"><div class="invalid-feedback" id="confirm-password-feedback">Confirm password.</div></div><div class="col-12 mb-2"><label for="agent-photo" class="form-label">Photo (Optional)</label><input class="form-control" type="file" id="agent-photo" accept="image/png, image/jpeg, image/webp"><div id="photo-preview-container" class="d-none"><img id="photo-preview" src="#" alt="Photo Preview"/></div><div class="form-text">Max 5MB. JPG, PNG, WEBP.</div></div></div><button type="submit" class="btn btn-primary w-100 mt-3"> <i class="bi bi-pencil-square"></i> Create Profile</button></form><div id="new-agent-id-display" class="mt-3 alert alert-info d-none"></div></div>
+                </div></div>
             </div>
 
             <!-- Agent Dashboard Section -->
             <div id="dashboard-section" class="d-none">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                      <h2 id="dashboard-title" class="text-primary fw-bold mb-0">Agent Dashboard</h2>
-                     <button class="btn btn-secondary btn-sm" id="refresh-dashboard-btn"><i class="bi bi-arrow-clockwise"></i> Refresh Data</button>
-                </div>
-                 <hr class="mt-0">
+                     <button class="btn btn-secondary btn-sm" id="refresh-dashboard-btn"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
+                </div> <hr class="mt-0">
                  <!-- Quick Stats -->
                  <div class="row g-3 mb-4">
-                     <div class="col-md-3 col-6"><div class="card text-center shadow-sm h-100 border-success border-2"><div class="card-body"><h6 class="card-title text-success"><i class="bi bi-patch-check-fill"></i> Verified (Total)</h6><p class="card-text display-6 fw-bold" id="stats-total-verified">0</p></div></div></div>
-                      <div class="col-md-3 col-6"><div class="card text-center shadow-sm h-100 border-info border-2"><div class="card-body"><h6 class="card-title text-info"><i class="bi bi-gem"></i> Premium (Total)</h6><p class="card-text display-6 fw-bold" id="stats-total-premium">0</p></div></div></div>
-                     <div class="col-md-3 col-6"><div class="card text-center shadow-sm h-100 border-warning border-2"><div class="card-body"><h6 class="card-title text-warning"><i class="bi bi-calendar-check"></i> Verified (Today)</h6><p class="card-text display-6 fw-bold" id="stats-verified-today">0</p></div></div></div>
-                     <div class="col-md-3 col-6"><div class="card text-center shadow-sm h-100 border-danger border-2"><div class="card-body"><h6 class="card-title text-danger"><i class="bi bi-calendar-plus"></i> Premium (Today)</h6><p class="card-text display-6 fw-bold" id="stats-premium-today">0</p></div></div></div>
+                     <div class="col-md col-6 stat-card-sm"><div class="card text-center shadow-sm h-100 border-success border-2"><div class="card-body"><h6 class="card-title text-success"><i class="bi bi-patch-check-fill"></i> Verified (Total)</h6><p class="card-text fw-bold" id="stats-total-verified">0</p></div></div></div>
+                     <div class="col-md col-6 stat-card-sm"><div class="card text-center shadow-sm h-100 border-info border-2"><div class="card-body"><h6 class="card-title text-info"><i class="bi bi-gem"></i> Premium (Total)</h6><p class="card-text fw-bold" id="stats-total-premium">0</p></div></div></div>
+                     <div class="col-md col-6 stat-card-sm"><div class="card text-center shadow-sm h-100 border-warning border-2"><div class="card-body"><h6 class="card-title text-warning"><i class="bi bi-calendar-check"></i> Verified (Today)</h6><p class="card-text fw-bold" id="stats-verified-today">0</p></div></div></div>
+                     <div class="col-md col-6 stat-card-sm"><div class="card text-center shadow-sm h-100 border-danger border-2"><div class="card-body"><h6 class="card-title text-danger"><i class="bi bi-calendar-plus"></i> Premium (Today)</h6><p class="card-text fw-bold" id="stats-premium-today">0</p></div></div></div>
+                     <!-- New Stat Card -->
+                     <div class="col-md col-12 stat-card-sm"><div class="card text-center shadow-sm h-100 border-primary border-2"><div class="card-body"><h6 class="card-title text-primary"><i class="bi bi-percent"></i> Conversion Rate</h6><p class="card-text fw-bold" id="stats-conversion-rate">0%</p></div></div></div>
                  </div>
-                <!-- Tabs for Functionality -->
+                <!-- Tabs -->
                 <ul class="nav nav-tabs nav-fill mb-3" id="dashboard-tabs" role="tablist">
-                  <li class="nav-item" role="presentation"><button class="nav-link active" id="verify-tab" data-bs-toggle="tab" data-bs-target="#verify-content" type="button" role="tab"><i class="bi bi-check2-circle"></i> Verify School</button></li>
-                  <li class="nav-item" role="presentation"><button class="nav-link" id="premium-tab" data-bs-toggle="tab" data-bs-target="#premium-content" type="button" role="tab"><i class="bi bi-star-fill"></i> Activate Premium</button></li>
+                  <li class="nav-item" role="presentation"><button class="nav-link active" id="actions-tab" data-bs-toggle="tab" data-bs-target="#actions-content" type="button" role="tab"><i class="bi bi-lightning-charge-fill"></i> Actions</button></li>
+                  <li class="nav-item" role="presentation"><button class="nav-link" id="schools-tab" data-bs-toggle="tab" data-bs-target="#schools-content" type="button" role="tab"><i class="bi bi-list-task"></i> My Schools</button></li>
                   <li class="nav-item" role="presentation"><button class="nav-link" id="stats-tab" data-bs-toggle="tab" data-bs-target="#stats-content" type="button" role="tab"><i class="bi bi-graph-up"></i> Performance</button></li>
                   <li class="nav-item" role="presentation"><button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-content" type="button" role="tab"><i class="bi bi-person-gear"></i> Profile</button></li>
                 </ul>
                 <div class="tab-content" id="dashboard-tab-content">
-                  <!-- Verify School Content -->
-                  <div class="tab-pane fade show active" id="verify-content" role="tabpanel" aria-labelledby="verify-tab">
-                    <div class="card shadow-sm"><div class="card-header bg-light"><h5 class="mb-0"> <i class="bi bi-search"></i> Find and Verify School</h5></div>
-                      <div class="card-body">
-                        <form id="verify-school-form" class="needs-validation" novalidate><p class="text-muted small">Enter school's mobile and Gmail to verify.</p>
-                           <div class="row g-3">
-                               <div class="col-md-6"><label for="verify-school-mobile" class="form-label">School Mobile</label><div class="input-group"><span class="input-group-text"><i class="bi bi-phone"></i></span><input type="tel" class="form-control" id="verify-school-mobile" required placeholder="School's Mobile"><div class="invalid-feedback">Mobile number required.</div></div></div>
-                                <div class="col-md-6"><label for="verify-school-gmail" class="form-label">School Gmail</label><div class="input-group"><span class="input-group-text"><i class="bi bi-envelope-at"></i></span><input type="email" class="form-control" id="verify-school-gmail" required placeholder="School's Gmail"><div class="invalid-feedback">Valid Gmail required.</div></div></div>
-                           </div><button type="submit" class="btn btn-info w-100 mt-3"><i class="bi bi-check-lg"></i> Verify School</button>
-                        </form></div></div></div>
-                  <!-- Activate Premium Content -->
-                  <div class="tab-pane fade" id="premium-content" role="tabpanel" aria-labelledby="premium-tab">
-                    <div class="card shadow-sm"><div class="card-header bg-light"><h5 class="mb-0"><i class="bi bi-patch-plus-fill"></i> Activate Premium</h5></div>
-                      <div class="card-body">
-                        <form id="activate-premium-form" class="needs-validation" novalidate><p class="text-muted small">Select verified school to upgrade plan.</p>
-                           <div class="row g-3">
-                                <div class="col-md-7"><label for="verified-school-select" class="form-label">Select Verified School</label><select class="form-select" id="verified-school-select" required><option selected disabled value="">Loading...</option></select><div class="invalid-feedback">Select a school.</div></div>
-                                <div class="col-md-5"><label for="premium-plan-select" class="form-label">Select Plan</label><select class="form-select" id="premium-plan-select" required><option selected disabled value="">-- Select Plan --</option><option value="Yearly">Yearly</option><option value="Monthly">Monthly</option><option value="Weekly">Weekly</option></select><div class="invalid-feedback">Select a plan.</div></div>
-                           </div><button type="submit" class="btn btn-warning w-100 mt-3 text-dark"><i class="bi bi-gem"></i> Activate Plan</button>
-                        </form></div></div></div>
+                  <!-- Actions Content (Verify & Premium) -->
+                  <div class="tab-pane fade show active" id="actions-content" role="tabpanel" aria-labelledby="actions-tab">
+                     <div class="row">
+                         <div class="col-lg-6">
+                             <div class="card shadow-sm h-100"><div class="card-header bg-light"><h5 class="mb-0"> <i class="bi bi-search"></i> Find & Verify School</h5></div>
+                              <div class="card-body d-flex flex-column">
+                                <form id="verify-school-form" class="needs-validation flex-grow-1" novalidate><p class="text-muted small">Enter school's mobile & Gmail.</p>
+                                   <div class="row g-3 mb-3">
+                                       <div class="col-12"><label for="verify-school-mobile" class="form-label">School Mobile</label><div class="input-group"><span class="input-group-text"><i class="bi bi-phone"></i></span><input type="tel" class="form-control" id="verify-school-mobile" required placeholder="School's Mobile"><div class="invalid-feedback">Mobile required.</div></div></div>
+                                        <div class="col-12"><label for="verify-school-gmail" class="form-label">School Gmail</label><div class="input-group"><span class="input-group-text"><i class="bi bi-envelope-at"></i></span><input type="email" class="form-control" id="verify-school-gmail" required placeholder="School's Gmail"><div class="invalid-feedback">Valid Gmail required.</div></div></div>
+                                   </div><button type="submit" class="btn btn-info w-100 mt-auto"><i class="bi bi-check-lg"></i> Verify School</button>
+                                </form></div></div>
+                         </div>
+                         <div class="col-lg-6 mt-3 mt-lg-0">
+                              <div class="card shadow-sm h-100"><div class="card-header bg-light"><h5 class="mb-0"><i class="bi bi-patch-plus-fill"></i> Activate Premium</h5></div>
+                              <div class="card-body d-flex flex-column">
+                                <form id="activate-premium-form" class="needs-validation flex-grow-1" novalidate><p class="text-muted small">Select verified school & plan.</p>
+                                   <div class="row g-3 mb-3">
+                                        <div class="col-12"><label for="verified-school-select" class="form-label">Select Verified School</label><select class="form-select" id="verified-school-select" required><option selected disabled value="">Loading...</option></select><div class="invalid-feedback">Select a school.</div></div>
+                                        <div class="col-12"><label for="premium-plan-select" class="form-label">Select Plan</label><select class="form-select" id="premium-plan-select" required><option selected disabled value="">-- Plan --</option><option value="Yearly">Yearly</option><option value="Monthly">Monthly</option><option value="Weekly">Weekly</option></select><div class="invalid-feedback">Select a plan.</div></div>
+                                   </div><button type="submit" class="btn btn-warning w-100 mt-auto text-dark"><i class="bi bi-gem"></i> Activate Plan</button>
+                                </form></div></div>
+                         </div>
+                     </div>
+                  </div>
+                   <!-- My Schools Content (Verified & Premium Lists) -->
+                  <div class="tab-pane fade" id="schools-content" role="tabpanel" aria-labelledby="schools-tab">
+                    <div class="row">
+                        <div class="col-lg-6">
+                             <div class="card shadow-sm">
+                                 <div class="card-header bg-light"><h5 class="mb-0"><i class="bi bi-list-check"></i> Verified Schools</h5></div>
+                                 <div class="card-body">
+                                     <div class="table-responsive">
+                                         <table class="table table-striped table-hover table-sm">
+                                             <thead class="table-light"><tr><th>School Name</th><th>Status</th></tr></thead>
+                                             <tbody id="verified-schools-table-body">
+                                                 <tr><td colspan="2" class="text-center text-muted p-4"><div class="spinner-border spinner-border-sm" role="status"><span class="visually-hidden">Loading...</span></div></td></tr>
+                                             </tbody>
+                                         </table>
+                                     </div>
+                                 </div>
+                             </div>
+                        </div>
+                        <div class="col-lg-6 mt-3 mt-lg-0">
+                             <div class="card shadow-sm">
+                                 <div class="card-header bg-light"><h5 class="mb-0"><i class="bi bi-award-fill"></i> Premium Activations</h5></div>
+                                 <div class="card-body">
+                                     <div class="table-responsive">
+                                         <table class="table table-striped table-hover table-sm">
+                                              <thead class="table-light"><tr><th>School Name</th><th>Plan</th></tr></thead>
+                                             <tbody id="premium-schools-table-body">
+                                                  <tr><td colspan="2" class="text-center text-muted p-4"><div class="spinner-border spinner-border-sm" role="status"><span class="visually-hidden">Loading...</span></div></td></tr>
+                                             </tbody>
+                                         </table>
+                                     </div>
+                                 </div>
+                             </div>
+                        </div>
+                    </div>
+                  </div>
                   <!-- Performance Stats Content -->
                    <div class="tab-pane fade" id="stats-content" role="tabpanel" aria-labelledby="stats-tab">
                        <div class="card shadow-sm"><div class="card-header bg-light"><h5 class="mb-0"><i class="bi bi-bar-chart-line-fill"></i> Performance Overview</h5></div>
                            <div class="card-body"><div class="row g-3">
                                <div class="col-md-4"><h6>Premium Plans Activated</h6><div id="stats-premium-plans" class="list-group"><span class="list-group-item">Loading...</span></div></div>
-                               <div class="col-md-4"><h6>Monthly Verifications</h6><div class="table-responsive" style="max-height: 300px;"><table class="table table-striped table-hover table-sm caption-top"><caption>Verifications/month</caption><thead class="table-light"><tr><th>Month</th><th class="text-end">Count</th></tr></thead><tbody id="stats-monthly-verification"><tr><td colspan="2">Loading...</td></tr></tbody></table></div></div>
-                               <div class="col-md-4"><h6>Monthly Premium Activations</h6><div class="table-responsive" style="max-height: 300px;"><table class="table table-striped table-hover table-sm caption-top"><caption>Premium/month</caption><thead class="table-light"><tr><th>Month</th><th class="text-end">Count</th></tr></thead><tbody id="stats-monthly-premium"><tr><td colspan="2">Loading...</td></tr></tbody></table></div></div>
+                               <div class="col-md-4"><h6>Monthly Verifications</h6><div class="table-responsive"><table class="table table-striped table-hover table-sm caption-top"><caption>Verifications/month</caption><thead class="table-light"><tr><th>Month</th><th class="text-end">Count</th></tr></thead><tbody id="stats-monthly-verification"><tr><td colspan="2">Loading...</td></tr></tbody></table></div></div>
+                               <div class="col-md-4"><h6>Monthly Premium</h6><div class="table-responsive"><table class="table table-striped table-hover table-sm caption-top"><caption>Premium/month</caption><thead class="table-light"><tr><th>Month</th><th class="text-end">Count</th></tr></thead><tbody id="stats-monthly-premium"><tr><td colspan="2">Loading...</td></tr></tbody></table></div></div>
                            </div></div></div></div>
                   <!-- My Profile Content -->
                   <div class="tab-pane fade" id="profile-content" role="tabpanel" aria-labelledby="profile-tab">
                      <div class="card shadow-sm"><div class="card-header bg-light d-flex justify-content-between align-items-center"><h5 class="mb-0"><i class="bi bi-person-lines-fill"></i> Edit Profile</h5><span class="badge bg-secondary">ID: <span id="profile-agent-id">N/A</span></span></div>
-                       <div class="card-body">
-                         <div class="text-center mb-3">
-                             <img id="profile-photo-display" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAMhJREFUeF7t2KENglAQRdH/CrxgATfQgR1YgVHYgQHYgQVYgR0kgkkhQ+KEx5nLfPN7LpPgvZMYHMk4jrObsWzfiHEc5zdv7987d+zfa+3ft/0p9/13T4FqgcECRAvMFihaQApg9QC1BYYLUANA7UBrA9UCKALA/gVqCwwXoAYAtQOtbVA5AECEBYYLUANA7UBrA9UCKALA/gVqCwwXoAYAtQOtbVA5AECEBYYLUANA7UBrA9UCKALA/gVqCwwXoAYAtQOtbVA5AECEBYYLVAgwZLXKM/+sMQAAAABJRU5ErkJggg==" alt="Agent Photo">
-                         </div>
-                           <form id="update-profile-form" class="needs-validation" novalidate>
-                               <div class="row g-3">
-                                   <div class="col-md-6"><label for="profile-agent-name" class="form-label">Full Name</label><input type="text" class="form-control" id="profile-agent-name" required><div class="invalid-feedback">Name required.</div></div>
-                                   <div class="col-md-6"><label for="profile-agent-mobile" class="form-label">Mobile Number</label><input type="tel" class="form-control" id="profile-agent-mobile" required><div class="invalid-feedback">Mobile required.</div></div>
-                                   <div class="col-md-6"><label for="profile-agent-aadhar" class="form-label">Aadhar Number</label><input type="text" class="form-control" id="profile-agent-aadhar" required pattern="\d{12}"><div class="invalid-feedback">Valid 12-digit Aadhar required.</div></div>
-                                   <div class="col-md-6"><label for="profile-agent-email" class="form-label">Email Address</label><input type="email" class="form-control" id="profile-agent-email" required><div class="invalid-feedback">Valid email required.</div></div>
-                                   <div class="col-12"><label class="form-label">Creation Date</label><input type="text" class="form-control" id="profile-creation-date" disabled readonly></div>
-                                    <div class="col-12 alert alert-warning small"><i class="bi bi-exclamation-triangle-fill"></i> Updating photo or password requires separate actions (if implemented).</div>
-                               </div>
-                               <button type="submit" class="btn btn-success w-100 mt-3"><i class="bi bi-save-fill"></i> Save Profile Changes</button>
-                           </form>
+                       <div class="card-body"><div class="text-center mb-3"><img id="profile-photo-display" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAMhJREFUeF7t2KENglAQRdH/CrxgATfQgR1YgVHYgQHYgQVYgR0kgkkhQ+KEx5nLfPN7LpPgvZMYHMk4jrObsWzfiHEc5zdv7987d+zfa+3ft/0p9/13T4FqgcECRAvMFihaQApg9QC1BYYLUANA7UBrA9UCKALA/gVqCwwXoAYAtQOtbVA5AECEBYYLUANA7UBrA9UCKALA/gVqCwwXoAYAtQOtbVA5AECEBYYLUANA7UBrA9UCKALA/gVqCwwXoAYAtQOtbVA5AECEBYYLVAgwZLXKM/+sMQAAAABJRU5ErkJggg==" alt="Agent Photo"></div>
+                           <form id="update-profile-form" class="needs-validation" novalidate><div class="row g-3">
+                               <div class="col-md-6"><label for="profile-agent-name" class="form-label">Full Name</label><input type="text" class="form-control" id="profile-agent-name" required><div class="invalid-feedback">Name required.</div></div>
+                               <div class="col-md-6"><label for="profile-agent-mobile" class="form-label">Mobile</label><input type="tel" class="form-control" id="profile-agent-mobile" required><div class="invalid-feedback">Mobile required.</div></div>
+                               <div class="col-md-6"><label for="profile-agent-aadhar" class="form-label">Aadhar</label><input type="text" class="form-control" id="profile-agent-aadhar" required pattern="\d{12}"><div class="invalid-feedback">Valid 12-digit Aadhar required.</div></div>
+                               <div class="col-md-6"><label for="profile-agent-email" class="form-label">Email</label><input type="email" class="form-control" id="profile-agent-email" required><div class="invalid-feedback">Valid email required.</div></div>
+                               <div class="col-12"><label class="form-label">Creation Date</label><input type="text" class="form-control" id="profile-creation-date" disabled readonly></div>
+                               <div class="col-12 alert alert-warning small"><i class="bi bi-exclamation-triangle-fill"></i> Photo/Password update needs separate action (if available).</div>
+                           </div><button type="submit" class="btn btn-success w-100 mt-3"><i class="bi bi-save-fill"></i> Save Profile</button></form>
                        </div></div></div>
                 </div> <!-- End Tab Content -->
             </div> <!-- End Dashboard Section -->
         </div> <!-- End Container -->
-
-        <footer class="bg-dark text-white text-center p-3 mt-auto">
-            <small>&copy; 2024 Advanced Agent Portal System. All Rights Reserved.</small>
-        </footer>
+        <footer class="bg-dark text-white text-center p-3 mt-auto"><small>© 2024 Advanced Agent Portal System</small></footer>
     </div> <!-- End Main Content Wrapper -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -276,8 +217,6 @@
             const navAgentId = document.getElementById('nav-agent-id');
             const navLastLogin = document.getElementById('nav-last-login');
             const logoutButton = document.getElementById('logout-button');
-
-            // Login/Create Forms
             const loginForm = document.getElementById('login-form');
             const agentIdLoginInput = document.getElementById('agent-id-login');
             const agentPasswordLoginInput = document.getElementById('agent-password-login');
@@ -292,14 +231,13 @@
             const photoPreviewContainer = document.getElementById('photo-preview-container');
             const photoPreview = document.getElementById('photo-preview');
             const newAgentIdDisplay = document.getElementById('new-agent-id-display');
-
-            // Dashboard Elements
             const dashboardTitle = document.getElementById('dashboard-title');
             const refreshDashboardBtn = document.getElementById('refresh-dashboard-btn');
             const statsTotalVerified = document.getElementById('stats-total-verified');
             const statsTotalPremium = document.getElementById('stats-total-premium');
             const statsVerifiedToday = document.getElementById('stats-verified-today');
             const statsPremiumToday = document.getElementById('stats-premium-today');
+            const statsConversionRate = document.getElementById('stats-conversion-rate'); // New stat card
             const verifySchoolForm = document.getElementById('verify-school-form');
             const verifySchoolMobileInput = document.getElementById('verify-school-mobile');
             const verifySchoolGmailInput = document.getElementById('verify-school-gmail');
@@ -310,8 +248,6 @@
             const statsPremiumPlans = document.getElementById('stats-premium-plans');
             const statsMonthlyVerification = document.getElementById('stats-monthly-verification');
             const statsMonthlyPremium = document.getElementById('stats-monthly-premium');
-
-            // Profile Form
             const updateProfileForm = document.getElementById('update-profile-form');
             const profilePhotoDisplay = document.getElementById('profile-photo-display');
             const profileAgentId = document.getElementById('profile-agent-id');
@@ -320,19 +256,21 @@
             const profileAgentAadhar = document.getElementById('profile-agent-aadhar');
             const profileAgentEmail = document.getElementById('profile-agent-email');
             const profileCreationDate = document.getElementById('profile-creation-date');
-
             const formsToValidate = document.querySelectorAll('.needs-validation');
+            // New Table Bodies
+            const verifiedSchoolsTableBody = document.getElementById('verified-schools-table-body');
+            const premiumSchoolsTableBody = document.getElementById('premium-schools-table-body');
+
             let currentAgentData = null;
             let bsAlert = null;
-            let photoBase64Data = null; // To store photo data for creation
+            let photoBase64Data = null;
 
             // --- Utility Functions ---
             const showLoading = (show = true, text = 'Processing...') => {
                  loadingText.textContent = text;
                  loadingSpinner.classList.toggle('d-none', !show);
-                 mainContent.classList.toggle('loading', show); // Apply blur effect
+                 mainContent.classList.toggle('loading', show);
             };
-
             const showAlert = (message, type = 'danger', dismissible = true) => {
                 alertContainer.innerHTML = '';
                 const wrapper = document.createElement('div');
@@ -342,98 +280,58 @@
                 if ((type === 'success' || type === 'info') && dismissible && bootstrap && bootstrap.Alert) {
                     const alertElement = wrapper.firstChild;
                     bsAlert = new bootstrap.Alert(alertElement);
-                    setTimeout(() => { if (bsAlert) bsAlert.close(); }, 7000); // Longer timeout for success
+                    setTimeout(() => { if (bsAlert) bsAlert.close(); }, 7000);
                 }
             };
-
             const clearAlerts = () => { alertContainer.innerHTML = ''; };
-
-            const formatDate = (dateStringOrObject) => {
-                if (!dateStringOrObject) return 'N/A';
-                try {
-                    const date = new Date(dateStringOrObject);
-                    return isNaN(date.getTime()) ? 'Invalid Date' : date.toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' });
-                } catch (e) { return 'N/A'; }
-            };
+            const formatDate = (d) => { if (!d) return 'N/A'; try { const dt = new Date(d); return isNaN(dt.getTime()) ? 'Inv Date' : dt.toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' }); } catch (e) { return 'N/A'; } };
 
             // --- API Call Function ---
             const callApi = async (endpoint, method = 'POST', body = null) => {
-                showLoading(true);
-                let result = null; // Define result here to ensure it's always defined
+                showLoading(true); let result = null;
                 try {
                     const options = { method, headers: {} };
-                    if (body && (method === 'POST' || method === 'PUT' || method === 'PATCH')) {
-                        options.headers['Content-Type'] = 'application/json';
-                        options.body = JSON.stringify(body);
-                    }
+                    if (body && (method === 'POST' || method === 'PUT' || method === 'PATCH')) { options.headers['Content-Type'] = 'application/json'; options.body = JSON.stringify(body); }
                     const response = await fetch(endpoint, options);
-                    result = await response.json(); // Parse JSON response
-
-                    if (!response.ok) {
-                         // Throw an error with details from the parsed JSON result
-                         const error = new Error(result.message || `API Error: ${response.status}`);
-                         error.statusCode = response.status; // Attach status code to the error object
-                         error.resultData = result; // Attach full result
-                         throw error;
-                    }
-                    if (result.status === 'error') {
-                         // Handle application-level errors reported in the JSON body
-                         const error = new Error(result.message || 'An unknown application error occurred.');
-                         error.statusCode = result.statusCode || 400; // Use statusCode from result if available
-                         error.resultData = result;
-                         throw error;
-                    }
-                    return result; // Return successful data
-                } catch (error) {
-                    console.error(`Error calling API ${endpoint}:`, error);
-                    // Display error message from the caught error object
-                    showAlert(`Error: ${error.message || 'Network connection failed.'}`, 'danger');
-                    // Optionally return the error result data if available
-                    return error.resultData || null;
-                } finally {
-                    showLoading(false);
-                }
+                    result = await response.json();
+                    if (!response.ok) { const e = new Error(result.message || `API Error: ${response.status}`); e.statusCode = response.status; e.resultData = result; throw e; }
+                    if (result.status === 'error') { const e = new Error(result.message || 'App Error'); e.statusCode = result.statusCode || 400; e.resultData = result; throw e; }
+                    return result;
+                } catch (error) { console.error(`API Error ${endpoint}:`, error); showAlert(`Error: ${error.message || 'Network failed.'}`, 'danger'); return error.resultData || null;
+                } finally { showLoading(false); }
             };
 
             // --- UI Update Functions ---
             const showLogin = () => {
-                loginSection.classList.remove('d-none'); dashboardSection.classList.add('d-none');
-                agentInfoNav.classList.add('d-none'); logoutButton.classList.add('d-none');
-                loginForm.reset(); createAgentForm.reset();
-                resetValidation(loginForm); resetValidation(createAgentForm);
-                photoPreviewContainer.classList.add('d-none'); photoPreview.src="#"; photoBase64Data = null;
-                newAgentIdDisplay.classList.add('d-none'); newAgentIdDisplay.textContent = '';
+                loginSection.classList.remove('d-none'); dashboardSection.classList.add('d-none'); agentInfoNav.classList.add('d-none'); logoutButton.classList.add('d-none');
+                loginForm.reset(); createAgentForm.reset(); resetValidation(loginForm); resetValidation(createAgentForm);
+                photoPreviewContainer.classList.add('d-none'); photoPreview.src="#"; photoBase64Data = null; newAgentIdDisplay.classList.add('d-none'); newAgentIdDisplay.textContent = '';
                 currentAgentData = null; localStorage.removeItem('agentData'); clearAlerts();
             };
-
             const showDashboard = () => {
-                loginSection.classList.add('d-none'); dashboardSection.classList.remove('d-none');
-                agentInfoNav.classList.remove('d-none'); logoutButton.classList.remove('d-none');
-                clearAlerts();
-                verifySchoolForm.reset(); activatePremiumForm.reset(); updateProfileForm.reset();
+                loginSection.classList.add('d-none'); dashboardSection.classList.remove('d-none'); agentInfoNav.classList.remove('d-none'); logoutButton.classList.remove('d-none');
+                clearAlerts(); verifySchoolForm.reset(); activatePremiumForm.reset(); updateProfileForm.reset();
                 resetValidation(verifySchoolForm); resetValidation(activatePremiumForm); resetValidation(updateProfileForm);
-                loadDashboardData(); loadVerifiedSchoolsForPremium(); populateProfileForm();
+                loadDashboardData(); loadVerifiedSchoolsForPremium(); populateProfileForm(); loadAgentSchoolDetails(); // <-- Load school lists
                 const firstTab = document.querySelector('#dashboard-tabs button');
                 if (firstTab && bootstrap && bootstrap.Tab) { new bootstrap.Tab(firstTab).show(); }
             };
-
             const updateAgentNav = () => {
                 if (currentAgentData) {
-                    navAgentName.textContent = currentAgentData['Agent Name'] || 'Agent';
-                    navAgentId.textContent = currentAgentData['Agent ID'] || 'N/A';
-                    navLastLogin.textContent = formatDate(currentAgentData['Last Login']);
+                    navAgentName.textContent = currentAgentData['Agent Name'] || 'Agent'; navAgentId.textContent = currentAgentData['Agent ID'] || 'N/A'; navLastLogin.textContent = formatDate(currentAgentData['Last Login']);
                     const photoLink = currentAgentData['Photo Link'];
-                    if (photoLink && photoLink.startsWith('http')) {
-                         navAgentPhoto.src = photoLink;
-                         navAgentPhoto.classList.remove('d-none');
-                    } else {
-                         navAgentPhoto.classList.add('d-none'); // Hide if no photo link
-                    }
-
-                } else {
-                    navAgentName.textContent = 'N/A'; navAgentId.textContent = 'N/A'; navLastLogin.textContent = 'N/A';
-                    navAgentPhoto.classList.add('d-none');
-                }
+                    navAgentPhoto.src = (photoLink && photoLink.startsWith('http')) ? photoLink : "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAMhJREFUeF7t2KENglAQRdH/CrxgATfQgR1YgVHYgQHYgQVYgR0kgkkhQ+KEx5nLfPN7LpPgvZMYHMk4jrObsWzfiHEc5zdv7987d+zfa+3ft/0p9/13T4FqgcECRAvMFihaQApg9QC1BYYLUANA7UBrA9UCKALA/gVqCwwXoAYAtQOtbVA5AECEBYYLUANA7UBrA9UCKALA/gVqCwwXoAYAtQOtbVA5AECEBYYLUANA7UBrA9UCKALA/gVqCwwXoAYAtQOtbVA5AECEBYYLVAgwZLXKM/+sMQAAAABJRU5ErkJggg=="; // Use placeholder
+                    navAgentPhoto.classList.remove('d-none'); // Always show nav photo element now
+                } else { navAgentName.textContent = 'N/A'; navAgentId.textContent = 'N/A'; navLastLogin.textContent = 'N/A'; navAgentPhoto.classList.add('d-none'); }
+            };
+            const populateProfileForm = () => {
+                 if (currentAgentData) {
+                     profileAgentId.textContent = currentAgentData['Agent ID'] || 'N/A'; profileAgentName.value = currentAgentData['Agent Name'] || ''; profileAgentMobile.value = currentAgentData['Mobile Number'] || '';
+                     profileAgentAadhar.value = currentAgentData['Aadhar Number'] || ''; profileAgentEmail.value = currentAgentData['Gmail'] || ''; profileCreationDate.value = formatDate(currentAgentData['Creation Timestamp']);
+                     const photoLink = currentAgentData['Photo Link'];
+                     profilePhotoDisplay.src = (photoLink && photoLink.startsWith('http')) ? photoLink : "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAMhJREFUeF7t2KENglAQRdH/CrxgATfQgR1YgVHYgQHYgQVYgR0kgkkhQ+KEx5nLfPN7LpPgvZMYHMk4jrObsWzfiHEc5zdv7987d+zfa+3ft/0p9/13T4FqgcECRAvMFihaQApg9QC1BYYLUANA7UBrA9UCKALA/gVqCwwXoAYAtQOtbVA5AECEBYYLUANA7UBrA9UCKALA/gVqCwwXoAYAtQOtbVA5AECEBYYLUANA7UBrA9UCKALA/gVqCwwXoAYAtQOtbVA5AECEBYYLVAgwZLXKM/+sMQAAAABJRU5ErkJggg=="; // Use placeholder
+                     resetValidation(updateProfileForm);
+                 }
             };
 
             // --- Data Loading Functions ---
@@ -441,287 +339,185 @@
                 if (!currentAgentData || !currentAgentData['Agent ID']) return;
                 const result = await callApi('/api/get-agent-dashboard', 'POST', { agentId: currentAgentData['Agent ID'] });
                 if (result && result.status === 'success') {
-                    const stats = result.stats;
-                    currentAgentData = result.agentData; // Update local state
-                    localStorage.setItem('agentData', JSON.stringify(currentAgentData));
-                    updateAgentNav();
+                    const stats = result.stats; currentAgentData = result.agentData; localStorage.setItem('agentData', JSON.stringify(currentAgentData)); updateAgentNav();
                     dashboardTitle.textContent = `Welcome, ${result.agentData['Agent Name']}`;
-                    statsTotalVerified.textContent = stats.totalVerified || 0;
-                    statsTotalPremium.textContent = stats.totalPremiumActivated || 0;
-                    statsVerifiedToday.textContent = stats.verifiedToday || 0;
-                    statsPremiumToday.textContent = stats.premiumToday || 0;
+                    statsTotalVerified.textContent = stats.totalVerified || 0; statsTotalPremium.textContent = stats.totalPremiumActivated || 0; statsVerifiedToday.textContent = stats.verifiedToday || 0; statsPremiumToday.textContent = stats.premiumToday || 0;
+                    // Calculate Conversion Rate
+                    const totalVerifiedNum = parseInt(stats.totalVerified || 0);
+                    const totalPremiumNum = parseInt(stats.totalPremiumActivated || 0);
+                    const conversion = totalVerifiedNum > 0 ? ((totalPremiumNum / totalVerifiedNum) * 100).toFixed(1) : 0;
+                    statsConversionRate.textContent = `${conversion}%`;
                     // Premium Plans
-                    statsPremiumPlans.innerHTML = '';
-                    const planEntries = Object.entries(stats.premiumPlanCounts);
-                    if (planEntries.length > 0) {
-                         planEntries.sort(([, countA], [, countB]) => countB - countA);
-                         planEntries.forEach(([plan, count]) => { statsPremiumPlans.innerHTML += `<div class="list-group-item d-flex justify-content-between align-items-center">${plan}<span class="badge bg-primary rounded-pill">${count}</span></div>`; });
-                    } else { statsPremiumPlans.innerHTML = '<div class="list-group-item">No premium plans activated yet.</div>'; }
+                    statsPremiumPlans.innerHTML = ''; const planEntries = Object.entries(stats.premiumPlanCounts);
+                    if (planEntries.length > 0) { planEntries.sort(([, a], [, b]) => b - a); planEntries.forEach(([p, c]) => { statsPremiumPlans.innerHTML += `<div class="list-group-item d-flex justify-content-between align-items-center">${p}<span class="badge bg-primary rounded-pill">${c}</span></div>`; }); }
+                    else { statsPremiumPlans.innerHTML = '<div class="list-group-item">No premium plans.</div>'; }
                     // Monthly Verification
-                    statsMonthlyVerification.innerHTML = '';
-                    const sortedVerificationMonths = Object.keys(stats.monthlyVerification).sort().reverse();
-                    if (sortedVerificationMonths.length > 0) { sortedVerificationMonths.forEach(month => { statsMonthlyVerification.innerHTML += `<tr><td>${month}</td><td class="text-end">${stats.monthlyVerification[month]}</td></tr>`; }); }
-                    else { statsMonthlyVerification.innerHTML = '<tr><td colspan="2" class="text-center text-muted">No verification data.</td></tr>'; }
+                    statsMonthlyVerification.innerHTML = ''; const sortedVerMonths = Object.keys(stats.monthlyVerification).sort().reverse();
+                    if (sortedVerMonths.length > 0) { sortedVerMonths.forEach(m => { statsMonthlyVerification.innerHTML += `<tr><td>${m}</td><td class="text-end">${stats.monthlyVerification[m]}</td></tr>`; }); }
+                    else { statsMonthlyVerification.innerHTML = '<tr><td colspan="2" class="text-center text-muted">No data.</td></tr>'; }
                     // Monthly Premium
-                    statsMonthlyPremium.innerHTML = '';
-                    const sortedPremiumMonths = Object.keys(stats.monthlyPremium).sort().reverse();
-                     if (sortedPremiumMonths.length > 0) { sortedPremiumMonths.forEach(month => { statsMonthlyPremium.innerHTML += `<tr><td>${month}</td><td class="text-end">${stats.monthlyPremium[month]}</td></tr>`; }); }
-                    else { statsMonthlyPremium.innerHTML = '<tr><td colspan="2" class="text-center text-muted">No premium activation data.</td></tr>'; }
-                     if(showAlerts) showAlert('Dashboard data refreshed!', 'info');
-                } else if (showAlerts) { showAlert('Failed to refresh dashboard data.', 'warning'); }
+                    statsMonthlyPremium.innerHTML = ''; const sortedPremMonths = Object.keys(stats.monthlyPremium).sort().reverse();
+                    if (sortedPremMonths.length > 0) { sortedPremMonths.forEach(m => { statsMonthlyPremium.innerHTML += `<tr><td>${m}</td><td class="text-end">${stats.monthlyPremium[m]}</td></tr>`; }); }
+                    else { statsMonthlyPremium.innerHTML = '<tr><td colspan="2" class="text-center text-muted">No data.</td></tr>'; }
+                     if(showAlerts) showAlert('Dashboard refreshed!', 'info');
+                } else if (showAlerts) { showAlert('Failed to refresh dashboard.', 'warning'); }
             };
-
-            const loadVerifiedSchoolsForPremium = async () => {
-                if (!currentAgentData || !currentAgentData['Agent ID']) return;
+            const loadVerifiedSchoolsForPremium = async () => { /* ... (no changes needed here) ... */
+                 if (!currentAgentData || !currentAgentData['Agent ID']) return;
                 verifiedSchoolSelect.innerHTML = '<option selected disabled value="">Loading...</option>';
                 verifiedSchoolSelect.disabled = true; activatePremiumButton.disabled = true;
                 const result = await callApi('/api/get-agent-verified-schools', 'POST', { agentId: currentAgentData['Agent ID'] });
                 if (result && result.status === 'success' && result.schools) {
                      verifiedSchoolSelect.innerHTML = '<option selected disabled value="">-- Select Verified School --</option>';
-                    if (result.schools.length === 0) { verifiedSchoolSelect.innerHTML = '<option selected disabled value="">-- No schools verified by you --</option>'; }
+                    if (result.schools.length === 0) { verifiedSchoolSelect.innerHTML = '<option selected disabled value="">-- No schools verified --</option>'; }
                     else {
                          result.schools.sort((a, b) => a.schoolName.localeCompare(b.schoolName));
                         result.schools.forEach(school => {
                             const option = document.createElement('option');
                             option.value = school.rowIndex;
-                            option.textContent = `${school.schoolName} (${school.gmail}) ${school.premiumStatus === 'Activate' ? '- [Premium]' : '- [Inactive]'}`;
+                            option.textContent = `${school.schoolName} ${school.premiumStatus === 'Activate' ? '- [Premium]' : '- [Inactive]'}`;
                             verifiedSchoolSelect.appendChild(option);
                         });
                          verifiedSchoolSelect.disabled = false; activatePremiumButton.disabled = false;
                     }
-                } else { verifiedSchoolSelect.innerHTML = '<option selected disabled value="">-- Error loading schools --</option>'; }
+                } else { verifiedSchoolSelect.innerHTML = '<option selected disabled value="">-- Error loading --</option>'; }
+            };
+             // *** NEW FUNCTION to load school details into tables ***
+            const loadAgentSchoolDetails = async () => {
+                 if (!currentAgentData || !currentAgentData['Agent ID']) return;
+
+                 verifiedSchoolsTableBody.innerHTML = `<tr><td colspan="2" class="text-center text-muted p-4"><div class="spinner-border spinner-border-sm" role="status"><span class="visually-hidden">Loading...</span></div></td></tr>`;
+                 premiumSchoolsTableBody.innerHTML = `<tr><td colspan="2" class="text-center text-muted p-4"><div class="spinner-border spinner-border-sm" role="status"><span class="visually-hidden">Loading...</span></div></td></tr>`;
+
+                 const result = await callApi('/api/get-agent-verified-schools', 'POST', { agentId: currentAgentData['Agent ID'] });
+
+                 verifiedSchoolsTableBody.innerHTML = ''; // Clear loading state
+                 premiumSchoolsTableBody.innerHTML = ''; // Clear loading state
+                 let premiumCount = 0;
+
+                 if (result && result.status === 'success' && result.schools) {
+                     if (result.schools.length === 0) {
+                         verifiedSchoolsTableBody.innerHTML = `<tr><td colspan="2" class="text-center text-muted p-3">You haven't verified any schools yet.</td></tr>`;
+                     } else {
+                         result.schools.sort((a, b) => a.schoolName.localeCompare(b.schoolName)).forEach(school => {
+                             // Add to Verified Schools table
+                             const vRow = verifiedSchoolsTableBody.insertRow();
+                             vRow.insertCell().textContent = school.schoolName;
+                             const vStatusCell = vRow.insertCell();
+                             vStatusCell.innerHTML = school.premiumStatus === 'Activate'
+                                ? `<span class="badge bg-success">Premium</span>`
+                                : `<span class="badge bg-secondary">Inactive</span>`;
+
+                             // Add to Premium Schools table if active
+                             if (school.premiumStatus === 'Activate') {
+                                 const pRow = premiumSchoolsTableBody.insertRow();
+                                 pRow.insertCell().textContent = school.schoolName;
+                                 // We might need plan type here - modify GAS `getAgentVerifiedSchools` or fetch separately if needed
+                                 // For now, just confirm it's active
+                                 pRow.insertCell().innerHTML = `<span class="badge bg-success">Active</span>`;
+                                 premiumCount++;
+                             }
+                         });
+                     }
+
+                     if (premiumCount === 0) {
+                         premiumSchoolsTableBody.innerHTML = `<tr><td colspan="2" class="text-center text-muted p-3">No premium activations found.</td></tr>`;
+                     }
+
+                 } else {
+                      verifiedSchoolsTableBody.innerHTML = `<tr><td colspan="2" class="text-center text-danger p-3">Error loading verified schools.</td></tr>`;
+                      premiumSchoolsTableBody.innerHTML = `<tr><td colspan="2" class="text-center text-danger p-3">Error loading premium schools.</td></tr>`;
+                     // Error message already shown by callApi
+                 }
             };
 
-            const populateProfileForm = () => {
-                 if (currentAgentData) {
-                     profileAgentId.textContent = currentAgentData['Agent ID'] || 'N/A';
-                     profileAgentName.value = currentAgentData['Agent Name'] || '';
-                     profileAgentMobile.value = currentAgentData['Mobile Number'] || '';
-                     profileAgentAadhar.value = currentAgentData['Aadhar Number'] || '';
-                     profileAgentEmail.value = currentAgentData['Gmail'] || '';
-                     profileCreationDate.value = formatDate(currentAgentData['Creation Timestamp']);
-                      const photoLink = currentAgentData['Photo Link'];
-                     if (photoLink && photoLink.startsWith('http')) {
-                          profilePhotoDisplay.src = photoLink;
-                     } else {
-                         // Use placeholder if no photo
-                         profilePhotoDisplay.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAMhJREFUeF7t2KENglAQRdH/CrxgATfQgR1YgVHYgQHYgQVYgR0kgkkhQ+KEx5nLfPN7LpPgvZMYHMk4jrObsWzfiHEc5zdv7987d+zfa+3ft/0p9/13T4FqgcECRAvMFihaQApg9QC1BYYLUANA7UBrA9UCKALA/gVqCwwXoAYAtQOtbVA5AECEBYYLUANA7UBrA9UCKALA/gVqCwwXoAYAtQOtbVA5AECEBYYLUANA7UBrA9UCKALA/gVqCwwXoAYAtQOtbVA5AECEBYYLVAgwZLXKM/+sMQAAAABJRU5ErkJggg==";
-                     }
-                     resetValidation(updateProfileForm);
-                 }
-             };
 
             // --- Bootstrap Form Validation ---
-            const enableValidation = () => {
-                Array.from(formsToValidate).forEach(form => {
-                    form.addEventListener('submit', event => {
-                        if (!form.checkValidity()) { event.preventDefault(); event.stopPropagation(); }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-            };
-            const resetValidation = (form) => {
-                 if(form) { form.classList.remove('was-validated'); Array.from(form.querySelectorAll('.is-invalid, .is-valid')).forEach(el => el.classList.remove('is-invalid', 'is-valid')); }
-            };
+            const enableValidation = () => { /* ... (no changes) ... */ Array.from(formsToValidate).forEach(f => { f.addEventListener('submit', e => { if (!f.checkValidity()) { e.preventDefault(); e.stopPropagation(); } f.classList.add('was-validated'); }, false); }); };
+            const resetValidation = (f) => { /* ... (no changes) ... */ if(f) { f.classList.remove('was-validated'); Array.from(f.querySelectorAll('.is-invalid, .is-valid')).forEach(el => el.classList.remove('is-invalid', 'is-valid')); } };
 
             // --- Photo Preview Logic ---
-             agentPhotoInput.addEventListener('change', function(event) {
-                 const file = event.target.files[0];
-                 photoBase64Data = null; // Reset on new selection
-                 photoPreviewContainer.classList.add('d-none');
-
+             agentPhotoInput.addEventListener('change', function(event) { /* ... (no changes) ... */
+                 const file = event.target.files[0]; photoBase64Data = null; photoPreviewContainer.classList.add('d-none');
                  if (file) {
-                     // Basic validation
-                     const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
-                     if (!allowedTypes.includes(file.type)) {
-                          showAlert('Invalid file type. Please select JPG, PNG, or WEBP.', 'warning');
-                          agentPhotoInput.value = ''; // Clear the input
-                          return;
-                     }
-                     const maxSize = 5 * 1024 * 1024; // 5MB
-                     if (file.size > maxSize) {
-                          showAlert('File size exceeds 5MB limit.', 'warning');
-                          agentPhotoInput.value = '';
-                          return;
-                     }
-
-                     const reader = new FileReader();
-                     reader.onload = function(e) {
-                         photoPreview.src = e.target.result;
-                         photoPreviewContainer.classList.remove('d-none');
-                         photoBase64Data = e.target.result; // Store the base64 string
-                     }
-                     reader.readAsDataURL(file);
+                     const allowedTypes = ['image/jpeg', 'image/png', 'image/webp']; const maxSize = 5 * 1024 * 1024;
+                     if (!allowedTypes.includes(file.type)) { showAlert('Invalid file type.', 'warning'); agentPhotoInput.value = ''; return; }
+                     if (file.size > maxSize) { showAlert('File size > 5MB.', 'warning'); agentPhotoInput.value = ''; return; }
+                     const reader = new FileReader(); reader.onload = function(e) { photoPreview.src = e.target.result; photoPreviewContainer.classList.remove('d-none'); photoBase64Data = e.target.result; }; reader.readAsDataURL(file);
                  }
             });
-
              // --- Password Confirmation Validation ---
-             agentConfirmPasswordInput.addEventListener('input', () => {
-                 if (agentConfirmPasswordInput.value !== agentPasswordInput.value) {
-                     agentConfirmPasswordInput.setCustomValidity("Passwords do not match.");
-                     document.getElementById('confirm-password-feedback').textContent = "Passwords do not match.";
-                 } else {
-                     agentConfirmPasswordInput.setCustomValidity(""); // Reset custom validity
-                     document.getElementById('confirm-password-feedback').textContent = "Please confirm your password."; // Reset default message
-                 }
+             agentConfirmPasswordInput.addEventListener('input', () => { /* ... (no changes) ... */
+                 const feedbackEl = document.getElementById('confirm-password-feedback');
+                 if (agentConfirmPasswordInput.value !== agentPasswordInput.value) { agentConfirmPasswordInput.setCustomValidity("No match."); feedbackEl.textContent = "Passwords do not match."; }
+                 else { agentConfirmPasswordInput.setCustomValidity(""); feedbackEl.textContent = "Confirm password."; }
              });
-              // Also validate on password input change
-             agentPasswordInput.addEventListener('input', () => {
-                  if (agentConfirmPasswordInput.value && agentConfirmPasswordInput.value !== agentPasswordInput.value) {
-                     agentConfirmPasswordInput.setCustomValidity("Passwords do not match.");
-                 } else {
-                     agentConfirmPasswordInput.setCustomValidity("");
-                 }
-                 // Trigger validation display if the form has already been attempted
-                 if(createAgentForm.classList.contains('was-validated')) {
-                      agentConfirmPasswordInput.reportValidity();
-                 }
+             agentPasswordInput.addEventListener('input', () => { /* ... (no changes) ... */
+                  if (agentConfirmPasswordInput.value && agentConfirmPasswordInput.value !== agentPasswordInput.value) { agentConfirmPasswordInput.setCustomValidity("No match."); } else { agentConfirmPasswordInput.setCustomValidity(""); }
+                  if(createAgentForm.classList.contains('was-validated')) { agentConfirmPasswordInput.reportValidity(); }
              });
-
 
             // --- Event Handlers ---
-            loginForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                if (!loginForm.checkValidity()) { loginForm.classList.add('was-validated'); return; }
-                const payload = {
-                     agentId: agentIdLoginInput.value.trim(),
-                     password: agentPasswordLoginInput.value // Send password
-                };
+            loginForm.addEventListener('submit', async (e) => { /* ... (no changes) ... */
+                e.preventDefault(); if (!loginForm.checkValidity()) { loginForm.classList.add('was-validated'); return; }
+                const payload = { agentId: agentIdLoginInput.value.trim(), password: agentPasswordLoginInput.value };
                 const result = await callApi('/api/verify-agent', 'POST', payload);
-                if (result && result.status === 'success') {
-                    currentAgentData = result.agentData;
-                    localStorage.setItem('agentData', JSON.stringify(currentAgentData));
-                    updateAgentNav(); showDashboard();
-                } else {
-                    // Mark both fields invalid on failed login for security
-                    agentIdLoginInput.classList.add('is-invalid');
-                    agentPasswordLoginInput.classList.add('is-invalid');
-                }
+                if (result && result.status === 'success') { currentAgentData = result.agentData; localStorage.setItem('agentData', JSON.stringify(currentAgentData)); updateAgentNav(); showDashboard(); }
+                else { agentIdLoginInput.classList.add('is-invalid'); agentPasswordLoginInput.classList.add('is-invalid'); }
             });
-
-            createAgentForm.addEventListener('submit', async (e) => {
+            createAgentForm.addEventListener('submit', async (e) => { /* ... (no changes) ... */
                 e.preventDefault();
-                // Manual check for password confirmation before submitting
-                 if (agentPasswordInput.value !== agentConfirmPasswordInput.value) {
-                     agentConfirmPasswordInput.setCustomValidity("Passwords do not match.");
-                     createAgentForm.classList.add('was-validated'); // Show validation state
-                     agentConfirmPasswordInput.reportValidity(); // Force browser to show message
-                     return; // Stop submission
-                 } else {
-                     agentConfirmPasswordInput.setCustomValidity(""); // Ensure it's clear if they match now
-                 }
-
+                 if (agentPasswordInput.value !== agentConfirmPasswordInput.value) { agentConfirmPasswordInput.setCustomValidity("No match."); createAgentForm.classList.add('was-validated'); agentConfirmPasswordInput.reportValidity(); return; }
+                 else { agentConfirmPasswordInput.setCustomValidity(""); }
                  if (!createAgentForm.checkValidity()) { createAgentForm.classList.add('was-validated'); return; }
-
-                const payload = {
-                    agentName: agentNameInput.value.trim(),
-                    mobileNumber: agentMobileInput.value.trim(),
-                    aadharNumber: agentAadharInput.value.trim(),
-                    gmail: agentEmailInput.value.trim(),
-                    password: agentPasswordInput.value,
-                    photoBase64: photoBase64Data // Include base64 photo data if available
-                };
-                showLoading(true, 'Creating agent profile...');
-                const result = await callApi('/api/create-agent', 'POST', payload);
-                if (result && result.status === 'success') {
-                     showAlert(`Agent profile created! Agent ID: <strong>${result.agentId}</strong>. Welcome email sent.`, 'success');
-                     newAgentIdDisplay.textContent = `Success! Agent ID: ${result.agentId}`;
-                     newAgentIdDisplay.classList.remove('d-none');
-                     createAgentForm.reset(); resetValidation(createAgentForm);
-                     photoPreviewContainer.classList.add('d-none'); photoPreview.src="#"; photoBase64Data = null; // Reset photo stuff
-                }
-                // Error handled by callApi
+                const payload = { agentName: agentNameInput.value.trim(), mobileNumber: agentMobileInput.value.trim(), aadharNumber: agentAadharInput.value.trim(), gmail: agentEmailInput.value.trim(), password: agentPasswordInput.value, photoBase64: photoBase64Data };
+                showLoading(true, 'Creating profile...'); const result = await callApi('/api/create-agent', 'POST', payload);
+                if (result && result.status === 'success') { showAlert(`Agent created! ID: <strong>${result.agentId}</strong>. Welcome email sent.`, 'success'); newAgentIdDisplay.textContent = `Success! Agent ID: ${result.agentId}`; newAgentIdDisplay.classList.remove('d-none'); createAgentForm.reset(); resetValidation(createAgentForm); photoPreviewContainer.classList.add('d-none'); photoPreview.src="#"; photoBase64Data = null; }
             });
-
-            verifySchoolForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                if (!currentAgentData || !currentAgentData['Agent ID']) { handleLogout(); return; }
-                if (!verifySchoolForm.checkValidity()) { verifySchoolForm.classList.add('was-validated'); return; }
+            verifySchoolForm.addEventListener('submit', async (e) => { /* ... (no changes) ... */
+                e.preventDefault(); if (!currentAgentData || !currentAgentData['Agent ID']) { handleLogout(); return; } if (!verifySchoolForm.checkValidity()) { verifySchoolForm.classList.add('was-validated'); return; }
                 const payload = { agentId: currentAgentData['Agent ID'], schoolMobile: verifySchoolMobileInput.value.trim(), schoolGmail: verifySchoolGmailInput.value.trim() };
                 const result = await callApi('/api/verify-school', 'POST', payload);
-                if (result && result.status === 'success') {
-                    showAlert(result.message, 'success'); verifySchoolForm.reset(); resetValidation(verifySchoolForm);
-                    loadDashboardData(); loadVerifiedSchoolsForPremium();
-                }
+                if (result && result.status === 'success') { showAlert(result.message, 'success'); verifySchoolForm.reset(); resetValidation(verifySchoolForm); loadDashboardData(); loadVerifiedSchoolsForPremium(); loadAgentSchoolDetails(); /* <-- Refresh lists */ }
             });
-
-            activatePremiumForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                if (!currentAgentData || !currentAgentData['Agent ID']) { handleLogout(); return; }
-                if (!activatePremiumForm.checkValidity()) { activatePremiumForm.classList.add('was-validated'); return; }
+            activatePremiumForm.addEventListener('submit', async (e) => { /* ... (no changes) ... */
+                e.preventDefault(); if (!currentAgentData || !currentAgentData['Agent ID']) { handleLogout(); return; } if (!activatePremiumForm.checkValidity()) { activatePremiumForm.classList.add('was-validated'); return; }
                  const payload = { agentId: currentAgentData['Agent ID'], schoolRowIndex: parseInt(verifiedSchoolSelect.value, 10), planType: premiumPlanSelect.value };
                  const result = await callApi('/api/activate-premium', 'POST', payload);
-                 if (result && result.status === 'success') {
-                     showAlert(result.message, 'success'); activatePremiumForm.reset(); resetValidation(activatePremiumForm);
-                     loadDashboardData(); loadVerifiedSchoolsForPremium();
-                 }
+                 if (result && result.status === 'success') { showAlert(result.message, 'success'); activatePremiumForm.reset(); resetValidation(activatePremiumForm); loadDashboardData(); loadVerifiedSchoolsForPremium(); loadAgentSchoolDetails(); /* <-- Refresh lists */ }
             });
-
-            updateProfileForm.addEventListener('submit', async (e) => {
-                 e.preventDefault();
-                 if (!currentAgentData || !currentAgentData['Agent ID']) { handleLogout(); return; }
-                 if (!updateProfileForm.checkValidity()) { updateProfileForm.classList.add('was-validated'); return; }
-                  const payload = {
-                    agentId: currentAgentData['Agent ID'],
-                    agentName: profileAgentName.value.trim(),
-                    mobileNumber: profileAgentMobile.value.trim(), // Use correct field name
-                    aadharNumber: profileAgentAadhar.value.trim(), // Use correct field name
-                    gmail: profileAgentEmail.value.trim()
-                  };
+            updateProfileForm.addEventListener('submit', async (e) => { /* ... (no changes) ... */
+                 e.preventDefault(); if (!currentAgentData || !currentAgentData['Agent ID']) { handleLogout(); return; } if (!updateProfileForm.checkValidity()) { updateProfileForm.classList.add('was-validated'); return; }
+                  const payload = { agentId: currentAgentData['Agent ID'], agentName: profileAgentName.value.trim(), mobileNumber: profileAgentMobile.value.trim(), aadharNumber: profileAgentAadhar.value.trim(), gmail: profileAgentEmail.value.trim() };
                  const result = await callApi('/api/update-profile', 'POST', payload);
-                 if (result && result.status === 'success') {
-                     showAlert(result.message, 'success');
-                     currentAgentData = result.agentData; // Update local state
-                     localStorage.setItem('agentData', JSON.stringify(currentAgentData));
-                     updateAgentNav(); populateProfileForm(); resetValidation(updateProfileForm);
-                 }
+                 if (result && result.status === 'success') { showAlert(result.message, 'success'); currentAgentData = result.agentData; localStorage.setItem('agentData', JSON.stringify(currentAgentData)); updateAgentNav(); populateProfileForm(); resetValidation(updateProfileForm); }
             });
-
             logoutButton.addEventListener('click', () => { handleLogout(); });
-            refreshDashboardBtn.addEventListener('click', () => {
-                 showAlert('Refreshing dashboard data...', 'info', false);
-                 loadDashboardData(true); loadVerifiedSchoolsForPremium(); populateProfileForm();
+            refreshDashboardBtn.addEventListener('click', () => { /* ... (updated to refresh school list too) ... */
+                 showAlert('Refreshing data...', 'info', false);
+                 loadDashboardData(true); loadVerifiedSchoolsForPremium(); populateProfileForm(); loadAgentSchoolDetails(); // <-- Refresh lists
              });
-
-             const handleLogout = () => {
-                 currentAgentData = null; localStorage.removeItem('agentData');
-                 showLogin(); clearAlerts(); showAlert('You have been logged out.', 'info');
-             };
+             const handleLogout = () => { /* ... (no changes) ... */ currentAgentData = null; localStorage.removeItem('agentData'); showLogin(); clearAlerts(); showAlert('Logged out.', 'info'); };
 
             // --- Initial Load ---
-            const initializeApp = async () => {
-                showLoading(true, 'Initializing...');
-                const storedAgentData = localStorage.getItem('agentData');
+            const initializeApp = async () => { /* ... (updated to call loadAgentSchoolDetails on dashboard view) ... */
+                showLoading(true, 'Initializing...'); const storedAgentData = localStorage.getItem('agentData');
                 if (storedAgentData) {
                     try {
                         const agentData = JSON.parse(storedAgentData);
                         if (agentData && agentData['Agent ID']) {
-                             // No password stored, just assume session is valid for now
-                             // In a real app, you'd use tokens or re-verify server-side more robustly
-                             currentAgentData = agentData;
-                             updateAgentNav();
-                             showDashboard();
-                             // Optional: Refresh data silently in background on load
+                             currentAgentData = agentData; updateAgentNav(); showDashboard(); // Shows dashboard structure
+                             // Background refresh
                               callApi('/api/get-agent-dashboard', 'POST', { agentId: currentAgentData['Agent ID'] }).then(result => {
-                                  if (result && result.status === 'success') {
-                                      currentAgentData = result.agentData;
-                                      localStorage.setItem('agentData', JSON.stringify(currentAgentData));
-                                      updateAgentNav(); // Refresh nav with latest login time etc.
-                                      populateProfileForm(); // Refresh profile data
-                                       console.log("Background data refresh successful.");
-                                  } else {
-                                       console.warn("Background data refresh failed.");
-                                       // Optional: Force logout if background check fails critically
-                                       // handleLogout();
-                                       // showAlert("Session expired or invalid. Please log in again.", "warning");
-                                  }
+                                  if (result && result.status === 'success') { currentAgentData = result.agentData; localStorage.setItem('agentData', JSON.stringify(currentAgentData)); updateAgentNav(); populateProfileForm(); console.log("BG refresh OK."); }
+                                  else { console.warn("BG refresh failed."); /* Optional: handle failure */ }
                               });
-
+                              // Also load school details in background after showing dashboard structure
+                              loadAgentSchoolDetails();
                         } else { handleLogout(); }
-                    } catch (e) { console.error("Error parsing stored agent data:", e); handleLogout(); }
+                    } catch (e) { console.error("Parse error:", e); handleLogout(); }
                 } else { showLogin(); }
-                enableValidation();
-                showLoading(false);
+                enableValidation(); showLoading(false);
             };
 
             initializeApp();

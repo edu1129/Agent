@@ -4,7 +4,7 @@ const fetch = require('node-fetch'); // Use node-fetch v2 for CJS
 
 const app = express();
 const port = process.env.PORT || 3000;
-const GAS_URL = process.env.GAS_URL;
+const GAS_URL = process.env.GAS_URL; // Get GAS URL from environment variables
 
 // Middleware
 // Increase payload size limit for base64 photo data
@@ -36,8 +36,8 @@ async function callGas(action, payload) {
         
         // Attempt to parse JSON regardless of status code
         const result = await response.json();
-        console.log(`GAS Raw Response Status for ${action}: ${response.status}`);
-        console.log(`GAS Raw Response Body for ${action}: ${JSON.stringify(result)}`);
+        // console.log(`GAS Raw Response Status for ${action}: ${response.status}`);
+        // console.log(`GAS Raw Response Body for ${action}: ${JSON.stringify(result)}`);
         
         
         if (!response.ok) {
@@ -64,7 +64,7 @@ async function callGas(action, payload) {
             return { status: 'error', message: result.message, statusCode: statusCode };
         }
         
-        console.log(`GAS Success Response for ${action}:`, result.status);
+        // console.log(`GAS Success Response for ${action}:`, result.status);
         return { ...result, statusCode: 200 }; // Add statusCode for success
         
     } catch (error) {
